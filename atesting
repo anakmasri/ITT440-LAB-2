@@ -1,0 +1,37 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <sys/types.h>
+#include <sys/wait.h>
+#include <unistd.h>
+#include <string.h>
+
+void anak(){
+        char name[20];
+        printf("Child name: ");
+        scanf("%s", name);
+        printf("Child name is %s\n", name);
+}
+
+void makpak(){
+        char name[20];
+        printf("Child name is %s\n", name);
+}
+
+int main(void){
+        pid_t pid = fork();
+        char name[20];
+
+        for(int i=1; i<5; i++){
+                if(pid == 0){
+                        makpak();
+                        exit(0);
+                }
+                else{
+                        anak();
+                        wait(NULL);
+                        printf("Job is done.\n");
+                }
+        }
+
+        return EXIT_SUCCESS;
+}
